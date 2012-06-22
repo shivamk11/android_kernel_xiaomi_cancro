@@ -1320,6 +1320,9 @@ struct task_struct {
 	struct task_group *sched_task_group;
 #endif
 	struct ravg ravg;
+#ifdef CONFIG_CGROUP_SCHED
+	struct task_group *sched_task_group;
+#endif
 
 #ifdef CONFIG_PREEMPT_NOTIFIERS
 	/* list of struct preempt_notifier: */
