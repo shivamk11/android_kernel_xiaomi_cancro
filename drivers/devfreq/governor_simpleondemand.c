@@ -16,6 +16,7 @@
 #include <linux/slab.h>
 #include "governor.h"
 
+<<<<<<< HEAD
 #define DEVFREQ_SIMPLE_ONDEMAND	"simple_ondemand"
 
 /*
@@ -51,6 +52,11 @@ static inline int get_freq_num(struct devfreq *df) {
 	return num;
 }
 
+=======
+/* Default constants for DevFreq-Simple-Ondemand (DFSO) */
+#define DFSO_UPTHRESHOLD	(90)
+#define DFSO_DOWNDIFFERENCTIAL	(5)
+>>>>>>> parent of e79b8dc... PM: devfreq: Add sysfs nodes for devfreq governors
 static int devfreq_simple_ondemand_func(struct devfreq *df,
 					unsigned long *freq,
 					u32 *flag)
@@ -113,6 +119,7 @@ static int devfreq_simple_ondemand_func(struct devfreq *df,
 	return ret;
 }
 
+<<<<<<< HEAD
 static ssize_t simple_ondemand_upthreshold_show(struct kobject *kobj,
 						struct kobj_attribute *attr,
 						char *buf)
@@ -175,19 +182,17 @@ static struct attribute_group attr_group = {
 	.name = DEVFREQ_SIMPLE_ONDEMAND,
 };
 
+=======
+>>>>>>> parent of e79b8dc... PM: devfreq: Add sysfs nodes for devfreq governors
 static int devfreq_simple_ondemand_handler(struct devfreq *devfreq,
 				unsigned int event, void *data)
 {
-	int ret = 0;
-
 	switch (event) {
 	case DEVFREQ_GOV_START:
 		devfreq_monitor_start(devfreq);
-		ret = devfreq_policy_add_files(devfreq, attr_group);
 		break;
 
 	case DEVFREQ_GOV_STOP:
-		devfreq_policy_remove_files(devfreq, attr_group);
 		devfreq_monitor_stop(devfreq);
 		break;
 
@@ -207,11 +212,11 @@ static int devfreq_simple_ondemand_handler(struct devfreq *devfreq,
 		break;
 	}
 
-	return ret;
+	return 0;
 }
 
 static struct devfreq_governor devfreq_simple_ondemand = {
-	.name = DEVFREQ_SIMPLE_ONDEMAND,
+	.name = "simple_ondemand",
 	.get_target_freq = devfreq_simple_ondemand_func,
 	.event_handler = devfreq_simple_ondemand_handler,
 };
